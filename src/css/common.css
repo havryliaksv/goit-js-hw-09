@@ -9,10 +9,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
   color: #212121;
+
   line-height: 1.5;
 }
 
 img {
   display: block;
   max-width: 100%;
+}
+.timer {
+  display: flex;
+  gap: 10;
+  text-align: center;
+}
+.field {
+  width: 90px;
+}
+
+.field span {
+  display: block;
+  width: 100%;
+}
+.field > .value {
+  font-size: 48;
+}
+.field > .label {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+input {
+  font-size: 24;
+}
+button {
+  font-size: 24;
 }
