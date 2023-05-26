@@ -29,10 +29,11 @@ const refs = {
 };
 
 class Timer {
-  constructor({ onInterval }) {
+  constructor({ onInterval, endTimer }) {
     this.intervalId = null;
     this.selectedDate = selectedDate.selectedDates[0];
     this.onInterval = onInterval;
+    this.endTimer = endTimer;
   }
   convertMs(ms) {
     // Number of milliseconds per unit of time
@@ -60,6 +61,11 @@ class Timer {
       const timeEnd = this.selectedDate;
       const timeStart = Date.now();
       const deltaTime = timeEnd - timeStart;
+      if (deltaTime <= 0) {
+        this.stop();
+        this.endTimer();
+        return;
+      }
       const objTime = this.convertMs(deltaTime);
       objTime.days = this.addLeadingZero(objTime.days);
       objTime.hours = this.addLeadingZero(objTime.hours);
@@ -84,10 +90,19 @@ function updateTimerElements(objTime) {
   refs.seconds.textContent = objTime.seconds;
 }
 
+function endTimer() {
+  // refs.btnStart.removeEventListener('click', onClickStop);
+  refs.btnStart.addEventListener('click', onClickStart);
+  refs.btnStart.textContent = 'Start';
+  refs.input.disabled = false;
+}
+
 function onClickStart() {
   const timer = new Timer({
     onInterval: updateTimerElements,
+    endTimer: endTimer,
   });
+
   refs.input.disabled = true;
   timer.start();
   refs.btnStart.textContent = 'Stop';
