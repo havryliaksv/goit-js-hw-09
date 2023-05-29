@@ -16,13 +16,12 @@ function onSubmitForm(e) {
   for (let i = 1; i <= Number(refs.amount.value); i += 1) {
     createPromise(i, delay)
       .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, 3000);
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, delay);
       })
       .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, 3000);
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, delay);
       });
+
     delay += Number(refs.step.value);
   }
   e.currentTarget.reset();
@@ -30,7 +29,7 @@ function onSubmitForm(e) {
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
-    const shouldResolve = Math.random() > 0.3;
+    const shouldResolve = Math.random() > 0.9;
     setTimeout(() => {
       if (shouldResolve) {
         resolve({ position, delay });
