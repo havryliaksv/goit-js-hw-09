@@ -17,9 +17,11 @@ function onSubmitForm(e) {
     createPromise(i, delay)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, 3000);
+        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
         Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, 3000);
+        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
       });
     delay += Number(refs.step.value);
   }
@@ -31,9 +33,9 @@ function createPromise(position, delay) {
     const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
-        resolve((objPromise = { position, delay }));
+        resolve({ position, delay });
       } else {
-        reject((objPromise = { position, delay }));
+        reject({ position, delay });
       }
     }, delay);
   });
