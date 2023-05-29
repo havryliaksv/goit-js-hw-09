@@ -16,10 +16,10 @@ function onSubmitForm(e) {
   for (let i = 1; i <= Number(refs.amount.value); i += 1) {
     createPromise(i, delay)
       .then(({ position, delay }) => {
-        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, delay);
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`, 3000);
       })
       .catch(({ position, delay }) => {
-        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, delay);
+        Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`, 3000);
       });
 
     delay += Number(refs.step.value);
